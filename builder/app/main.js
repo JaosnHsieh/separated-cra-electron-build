@@ -2,7 +2,7 @@ const { app, BrowserWindow, protocol } = require('electron');
 const path = require('path');
 const url = require('url');
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+// const IS_PRODUCTION = app.isPackaged;
 const CRA_BUILD_FOLDER = `cra-build`;
 
 let window;
@@ -35,14 +35,6 @@ app.on('ready', () => {
     'file',
     (request, callback) => {
       const url = request.url.substr(7); /* all urls start with 'file://' */
-      if (IS_PRODUCTION) {
-        callback({
-          path: path.normalize(
-            path.join(app.getAppPath(), CRA_BUILD_FOLDER, url),
-          ),
-        });
-        return;
-      }
 
       callback({
         path: path.normalize(path.join(__dirname, CRA_BUILD_FOLDER, url)),
