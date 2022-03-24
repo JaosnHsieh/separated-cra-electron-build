@@ -1,0 +1,11 @@
+{
+  "appId": "com.thatisuday.fileio",
+  "productName": "Electron File IO",
+  "copyright": "THATISUDAY TECH PVT. LTD.",
+  "directories": {
+    "app": ".",
+    "output": "dist",
+    "buildResources": "build-res"
+  },
+  "files": ["package.json", "app/**/*", "node_modules"]
+}
