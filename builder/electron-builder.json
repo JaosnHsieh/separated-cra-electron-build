@@ -1,7 +1,6 @@
 {
-  "appId": "com.thatisuday.fileio",
-  "productName": "Electron File IO",
-  "copyright": "THATISUDAY TECH PVT. LTD.",
+  "appId": "com.example",
+  "productName": "Separated CRA electron build example",
   "directories": {
     "app": ".",
     "output": "dist",

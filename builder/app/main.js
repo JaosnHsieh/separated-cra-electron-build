@@ -1,8 +1,8 @@
-const { app, BrowserWindow, protocol } = require('electron');
+const { app, BrowserWindow, protocol, remote } = require('electron');
 const path = require('path');
 const url = require('url');
 
-const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const IS_PRODUCTION = app.isPackaged;
 
 let window;
 
@@ -11,9 +11,8 @@ function createWindow() {
 
   const appUrl = IS_PRODUCTION
     ? url.format({
-        pathname:
-          '/cra-build/index.html' /* Attention here: origin is path.join(__dirname, 'index.html') */,
-        protocol: 'file',
+        pathname: path.join(remote.app.getAppPath(), 'cra-build', 'index.html'),
+        protocol: 'app',
         slashes: true,
       })
     : 'http://localhost:3000';
@@ -28,8 +27,8 @@ function createWindow() {
 }
 
 app.on('ready', () => {
-  protocol.interceptFileProtocol(
-    'file',
+  protocol.registerFileProtocol(
+    'app',
     (request, callback) => {
       const url = request.url.substr(7); /* all urls start with 'file://' */
       callback({ path: path.normalize(`${__dirname}/${url}`) });
